@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const CenteredInputBox = () => {
   const [inputText, setInputText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const wordsStartingWithT = ['technology', 'tomato', 'tom cruise', 'tetul'];
 
   const containerStyle = {
     display: 'flex',
@@ -36,25 +37,22 @@ const CenteredInputBox = () => {
     color: 'lightgray',
   };
 
-  const suggestionsStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    marginTop: '120px',
-  };
-
   const handleInputChange = (event) => {
-    const inputValue = event.target.value;
-    setInputText(inputValue);
+    const inputText = event.target.value;
+    setInputText(inputText);
 
     // Filter suggestions based on input
-    const filteredSuggestions = getSuggestions().filter((suggestion) =>
-      suggestion.toLowerCase().includes(inputValue.toLowerCase())
-    );
-    setSuggestions(filteredSuggestions);
+    const words = inputText.split(' ');
+    const currentWord = words[words.length - 1];
+
+    if (currentWord.length > 0) {
+      const matchingSuggestions = wordsStartingWithT.filter(word => word.startsWith(currentWord));
+      setSuggestions(matchingSuggestions);
+    } else {
+      setSuggestions([]);
+    }
   };
 
-  const getSuggestions = () => ['tom cruise', 'tetul', 'tomato'];
 
   const highlightTomato = (sentence) => {
     const words = sentence.split(/\s+/);
@@ -103,10 +101,12 @@ const CenteredInputBox = () => {
           onChange={handleInputChange}
         />
       </>
-      <div style={suggestionsStyle}>
-        {suggestions.map((suggestion, index) => (
-          <span key={index}>{suggestion}</span>
-        ))}
+      <div style={{ marginTop: 100, alignSelf: "center" }}>
+        <ul>
+          {suggestions.map((suggestion, index) => (
+            <li key={index}>{suggestion}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
