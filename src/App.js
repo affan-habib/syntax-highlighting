@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import TextInput from './components/TextInput';
+import TextOutput from './components/TextOutput';
+import Suggestions from './components/Suggestions';
 
 const App = () => {
   const [inputText, setInputText] = useState('');
@@ -13,34 +16,6 @@ const App = () => {
     height: '100vh',
   };
 
-  const inputStyle = {
-    width: '600px',
-    height: '70px',
-    fontSize: '16px',
-    color: 'transparent',
-    caretColor: 'black',
-    marginBottom: '10px',
-    padding: '8px',
-    border: '1px solid lightgray',
-    borderRadius: '4px',
-    outline: 'none',
-    boxSizing: 'border-box',
-    fontFamily: 'Arial, sans-serif',
-    position: 'absolute',
-  };
-
-  const textOutputStyle = {
-    ...inputStyle,
-    whiteSpace: 'pre-wrap',
-    display: 'flex',
-    alignItems: 'center',
-    color: 'black',
-  };
-  const suggestionStyle = {
-    listStyle: "none",
-    width: '600px',
-  };
-
   const handleInputChange = (event) => {
     const inputText = event.target.value;
     setInputText(inputText);
@@ -50,14 +25,14 @@ const App = () => {
     const currentWord = words[words.length - 1];
 
     if (currentWord.length > 0) {
-      const matchingSuggestions = wordsStartingWithT.filter(word => word.startsWith(currentWord));
+      const matchingSuggestions = wordsStartingWithT.filter((word) =>
+        word.startsWith(currentWord)
+      );
       setSuggestions(matchingSuggestions);
     } else {
       setSuggestions([]);
     }
   };
-
-
   const highlightTomato = (sentence) => {
     const words = sentence.split(/\s+/);
 
@@ -90,28 +65,13 @@ const App = () => {
     });
   };
 
+  const highlightedText = highlightTomato(inputText);
+
   return (
     <div style={containerStyle}>
-      <>
-        <div style={textOutputStyle}>
-          {highlightTomato(inputText)}
-        </div>
-        <input
-          type="text"
-          style={inputStyle}
-          maxLength="64"
-          placeholder="Type here..."
-          value={inputText}
-          onChange={handleInputChange}
-        />
-      </>
-      <div style={{ marginTop: 100 }}>
-        <ul style={suggestionStyle}>
-          {suggestions.map((suggestion, index) => (
-            <li key={index}>{suggestion}</li>
-          ))}
-        </ul>
-      </div>
+      <TextOutput highlightedText={highlightedText} />
+      <TextInput value={inputText} onChange={handleInputChange} />
+      <Suggestions suggestions={suggestions} />
     </div>
   );
 };
