@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CenteredInputBox = () => {
+const App = () => {
   const [inputText, setInputText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const wordsStartingWithT = ['technology', 'tomato', 'tom cruise', 'tetul'];
@@ -34,7 +34,11 @@ const CenteredInputBox = () => {
     whiteSpace: 'pre-wrap',
     display: 'flex',
     alignItems: 'center',
-    color: 'lightgray',
+    color: 'black',
+  };
+  const suggestionStyle = {
+    listStyle: "none",
+    width: '600px',
   };
 
   const handleInputChange = (event) => {
@@ -101,8 +105,8 @@ const CenteredInputBox = () => {
           onChange={handleInputChange}
         />
       </>
-      <div style={{ marginTop: 100, alignSelf: "center" }}>
-        <ul>
+      <div style={{ marginTop: 100 }}>
+        <ul style={suggestionStyle}>
           {suggestions.map((suggestion, index) => (
             <li key={index}>{suggestion}</li>
           ))}
@@ -112,4 +116,4 @@ const CenteredInputBox = () => {
   );
 };
 
-export default CenteredInputBox;
+export default App;
