@@ -1,6 +1,6 @@
 # Syntax Highlighting Test - FringeCore
 
-This project, given by FringeCore, showcases a React application that incorporates syntax highlighting for the word "tomato" as it's typed into an input box. Additionally, the application offers suggestions for words that start with the same character as the current input.
+This project, given by FringeCore, showcases a React application that incorporates syntax highlighting for the word "tomato" as it's typed into an input box. Additionally, the application offers suggestions for words that start with the same character as the current input, using a predefined array.
 
 ## Components
 
@@ -25,6 +25,9 @@ To run this project locally:
 1. Type text into the input box.
 2. The word "tomato" will be highlighted whenever it appears in the input.
 3. Suggestions for words starting with the same character as the input will appear below the input box.
+
+   - As you type, suggestions from the predefined list will appear.
+   - Suggestions will be filtered as you type more characters that match the predefined list.
 
 ## Components Breakdown
 
