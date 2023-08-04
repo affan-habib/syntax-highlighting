@@ -1,0 +1,1 @@
+# fringecore-challenge-syntax-highlighting
